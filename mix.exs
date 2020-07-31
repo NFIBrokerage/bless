@@ -18,7 +18,6 @@ defmodule Bless.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      aliases: aliases(),
       preferred_cli_env: [
         credo: :test,
         coveralls: :test,
@@ -27,6 +26,12 @@ defmodule Bless.MixProject do
         test: :test
       ],
       test_coverage: [tool: ExCoveralls],
+      test_suite: [
+        compile: ["--warnings-as-errors", "--force"],
+        "coveralls.html": [],
+        format: ["--check-formatted"],
+        credo: []
+      ],
       package: package(),
       description: description(),
       source_url: "https://github.com/NFIBrokerage/bless",
@@ -45,10 +50,10 @@ defmodule Bless.MixProject do
   defp deps do
     [
       # docs
-      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
+      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false, optional: true},
       # test
-      {:excoveralls, "~> 0.7", only: :test},
-      {:credo, "~> 0.9.1", only: :test, runtime: false}
+      {:excoveralls, ">= 0.0.0", only: :test, optional: true},
+      {:credo, ">= 0.0.0", only: :test, runtime: false, optional: true}
     ]
   end
 
@@ -57,7 +62,6 @@ defmodule Bless.MixProject do
       name: "bless",
       files: ~w(lib .formatter.exs mix.exs README.md .version),
       licenses: [],
-      organization: "cuatro",
       links: %{"GitHub" => "https://github.com/NFIBrokerage/bless"}
     ]
   end
@@ -79,28 +83,6 @@ defmodule Bless.MixProject do
         Guides: Path.wildcard("guides/*.md")
       ]
     ]
-  end
-
-  defp aliases do
-    [
-      bless: [&bless/1]
-    ]
-  end
-
-  defp bless(_) do
-    [
-      {"compile", ["--warnings-as-errors", "--force"]},
-      {"coveralls.html", []},
-      {"format", ["--check-formatted"]},
-      {"credo", []}
-    ]
-    |> Enum.each(fn {task, args} ->
-      [:cyan, "Running #{task} with args #{inspect(args)}"]
-      |> IO.ANSI.format()
-      |> IO.puts()
-
-      Mix.Task.run(task, args)
-    end)
   end
 end
 
