@@ -26,7 +26,7 @@ defmodule Bless.MixProject do
         test: :test
       ],
       test_coverage: [tool: ExCoveralls],
-      test_suite: [
+      bless_suite: [
         compile: ["--warnings-as-errors", "--force"],
         "coveralls.html": [],
         format: ["--check-formatted"],

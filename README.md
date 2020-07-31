@@ -7,7 +7,7 @@ A mix task for running test suites
 ## Usage
 
 Define the test suite for bless to run by making a list of tasks and
-arguments in your `mix.exs` file. Add a `:test_suite` key to the `project/0`
+arguments in your `mix.exs` file. Add a `:bless_suite` key to the `project/0`
 function like so:
 
 ```elixir
@@ -17,7 +17,7 @@ def project do
       bless: :test
     ],
     ..
-    test_suite: [
+    bless_suite: [
       compile: ["--warnings-as-errors", "--force"],
       "coveralls.html": [],
       format: ["--check-formatted"],

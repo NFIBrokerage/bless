@@ -6,7 +6,7 @@ defmodule Mix.Tasks.Bless do
   A mix task for running a test suite.
 
   Define the test suite for bless to run by making a list of tasks and
-  arguments in your `mix.exs` file. Add a `:test_suite` key to the `project/0`
+  arguments in your `mix.exs` file. Add a `:bless_suite` key to the `project/0`
   function like so:
 
       def project do
@@ -15,7 +15,7 @@ defmodule Mix.Tasks.Bless do
             bless: :test
           ],
           ..
-          test_suite: [
+          bless_suite: [
             compile: ["--warnings-as-errors", "--force"],
             "coveralls.html": [],
             format: ["--check-formatted"],
@@ -31,7 +31,7 @@ defmodule Mix.Tasks.Bless do
   @shortdoc "Runs a testing suite"
   def run(_) do
     Mix.Project.config()
-    |> Keyword.get(:test_suite, Bless.default())
+    |> Keyword.get(:bless_suite, Bless.default())
     |> Enum.each(fn {task, args} ->
       IO.ANSI.format([:cyan, "Running #{task} with args #{inspect(args)}"])
       |> IO.puts()
