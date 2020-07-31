@@ -149,7 +149,9 @@
         #
         # Deprecated checks (these will be deleted after a grace period)
         #
-        {Credo.Check.Readability.Specs, false}
+        {Credo.Check.Readability.Specs, false},
+
+        {Credo.Check.Refactor.MapInto, false}
 
         #
         # Custom checks can be created using `mix credo.gen.check`.
