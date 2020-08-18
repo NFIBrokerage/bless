@@ -6,7 +6,7 @@ defmodule Bless do
   def default do
     [
       compile: ["--warnings-as-errors", "--force"],
-      "coveralls.html": [],
+      "coveralls.html": ["--raise"],
       format: ["--check-formatted"],
       credo: []
     ]
