@@ -21,7 +21,8 @@ def project do
       compile: ["--warnings-as-errors", "--force"],
       "coveralls.html": [],
       format: ["--check-formatted"],
-      credo: []
+      credo: [],
+      "deps.unlock": ["--check-unused"]
     ],
     ..
   ]
