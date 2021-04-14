@@ -14,7 +14,7 @@ defmodule Bless.MixProject do
     [
       app: :bless,
       version: @version,
-      elixir: "~> 1.10",
+      elixir: "~> 1.6",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       deps: deps(),
