@@ -3,6 +3,7 @@ defmodule Bless do
   A mix task for running test suites
   """
 
+  # coveralls-ignore-start
   def default do
     [
       compile: ["--warnings-as-errors", "--force"],
@@ -25,4 +26,6 @@ defmodule Bless do
 
     checks ++ version_dependent_checks
   end
+
+  # coveralls-ignore-stop
 end
