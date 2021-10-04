@@ -17,10 +17,10 @@ defmodule Bless do
 
   # chaps-ignore-start
   defp available?({:chaps, _args}),
-    do: Code.ensure_loaded?(Mix.Tasks.Chaps.Html)
+    do: Code.ensure_loaded?(Mix.Tasks.Chaps)
 
   defp available?({:coveralls, _args}),
-    do: Code.ensure_loaded?(Mix.Tasks.Coveralls.Html)
+    do: Code.ensure_loaded?(Mix.Tasks.Coveralls)
 
   # chaps-ignore-stop
   defp available?({:"chaps.html", _args}),
@@ -29,8 +29,11 @@ defmodule Bless do
   defp available?({:"coveralls.html", _args}),
     do: Code.ensure_loaded?(Mix.Tasks.Coveralls.Html)
 
+  defp available?({:credo, _args}),
+    do: Code.ensure_loaded?(Mix.Tasks.Credo)
+
   defp available?({:format, _args}),
-    do: Code.ensure_loaded?(Mix.Tasks.Coveralls.Html)
+    do: Code.ensure_loaded?(Mix.Tasks.Format)
 
   defp available?({:"deps.unlock", args}) do
     if "--check-unused" in args,
