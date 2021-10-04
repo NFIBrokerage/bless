@@ -3,29 +3,40 @@ defmodule Bless do
   A mix task for running test suites
   """
 
-  # coveralls-ignore-start
   def default do
     [
       compile: ["--warnings-as-errors", "--force"],
+      "chaps.html": ["--raise"],
       "coveralls.html": ["--raise"],
       format: ["--check-formatted"],
-      credo: []
+      credo: [],
+      "deps.unlock": ["--check-unused"]
     ]
-    |> append_version_dependent_checks()
+    |> Enum.filter(&available?/1)
   end
 
-  defp append_version_dependent_checks(checks) do
-    version_dependent_checks =
-      if Version.match?(System.version(), "~> 1.10") do
-        [
-          "deps.unlock": ["--check-unused"]
-        ]
-      else
-        []
-      end
+  # chaps-ignore-start
+  defp available?({:chaps, _args}),
+    do: Code.ensure_loaded?(Mix.Tasks.Chaps.Html)
 
-    checks ++ version_dependent_checks
+  defp available?({:coveralls, _args}),
+    do: Code.ensure_loaded?(Mix.Tasks.Coveralls.Html)
+
+  # chaps-ignore-stop
+  defp available?({:"chaps.html", _args}),
+    do: Code.ensure_loaded?(Mix.Tasks.Chaps.Html)
+
+  defp available?({:"coveralls.html", _args}),
+    do: Code.ensure_loaded?(Mix.Tasks.Coveralls.Html)
+
+  defp available?({:format, _args}),
+    do: Code.ensure_loaded?(Mix.Tasks.Coveralls.Html)
+
+  defp available?({:"deps.unlock", args}) do
+    if "--check-unused" in args,
+      do: Version.match?(System.version(), "~> 1.10"),
+      else: true
   end
 
-  # coveralls-ignore-stop
+  defp available?(_check), do: true
 end

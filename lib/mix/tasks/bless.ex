@@ -1,4 +1,4 @@
-# coveralls-ignore-start
+# chaps-ignore-start
 defmodule Mix.Tasks.Bless do
   use Mix.Task
 
@@ -17,9 +17,10 @@ defmodule Mix.Tasks.Bless do
           ..
           bless_suite: [
             compile: ["--warnings-as-errors", "--force"],
-            "coveralls.html": [],
+            "chaps.html": ["--force"],
             format: ["--check-formatted"],
-            credo: []
+            credo: [],
+            "deps.unlock": ["--unused"]
           ],
           ..
         ]
@@ -41,4 +42,4 @@ defmodule Mix.Tasks.Bless do
   end
 end
 
-# coveralls-ignore-stop
+# chaps-ignore-stop
