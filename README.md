@@ -19,7 +19,7 @@ def project do
     ..
     bless_suite: [
       compile: ["--warnings-as-errors", "--force"],
-      "coveralls.html": [],
+      "chaps.html": ["--raise"],
       format: ["--check-formatted"],
       credo: [],
       "deps.unlock": ["--check-unused"]
