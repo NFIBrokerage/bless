@@ -20,15 +20,15 @@ defmodule Bless.MixProject do
       deps: deps(),
       preferred_cli_env: [
         credo: :test,
-        coveralls: :test,
-        "coveralls.html": :test,
+        chaps: :test,
+        "chaps.html": :test,
         bless: :test,
         test: :test
       ],
-      test_coverage: [tool: ExCoveralls],
+      test_coverage: [tool: Chaps],
       bless_suite: [
         compile: ["--warnings-as-errors", "--force"],
-        "coveralls.html": [],
+        "chaps.html": ["--raise"],
         format: ["--check-formatted"],
         credo: []
       ],
@@ -52,7 +52,7 @@ defmodule Bless.MixProject do
       # docs
       {:ex_doc, ">= 0.0.0", only: :dev, runtime: false, optional: true},
       # test
-      {:excoveralls, ">= 0.0.0", only: :test, optional: true},
+      {:chaps, ">= 0.15.0", only: :test, optional: true},
       {:credo, ">= 0.0.0", only: :test, runtime: false, optional: true}
     ]
   end
@@ -60,7 +60,7 @@ defmodule Bless.MixProject do
   defp package do
     [
       name: "bless",
-      files: ~w(lib .formatter.exs mix.exs README.md .version),
+      files: ~w(lib .formatter.exs mix.exs README.md .version LICENSE),
       licenses: [],
       links: %{"GitHub" => "https://github.com/NFIBrokerage/bless"}
     ]
