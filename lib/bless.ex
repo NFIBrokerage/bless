@@ -15,6 +15,20 @@ defmodule Bless do
     |> Enum.filter(&available?/1)
   end
 
+  @option_definitions [seed: :string]
+  @option_mappings [seed: [:test, :"chaps.html", :"coveralls.html"]]
+  def combine_args({task, subargs} = _bless_component, archargs) do
+    {parsed_args, _other_args, _invalid_args} =
+      OptionParser.parse(archargs, strict: @option_definitions)
+
+    parsed_args
+    |> Enum.filter(fn {switch, _val} ->
+      task in Keyword.get(@option_mappings, switch)
+    end)
+    |> OptionParser.to_argv()
+    |> Kernel.++(subargs)
+  end
+
   # chaps-ignore-start
   defp available?({:chaps, _args}),
     do: Code.ensure_loaded?(Mix.Tasks.Chaps)

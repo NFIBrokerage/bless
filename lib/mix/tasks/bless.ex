@@ -40,18 +40,17 @@ defmodule Mix.Tasks.Bless do
 
     Mix.Project.config()
     |> Keyword.get(:bless_suite, Bless.default())
-    |> Enum.map(fn {task, default_args} ->
-      if task in ~w(test chaps.html coveralls.html)a do
-        {task, default_args ++ archargs}
-      else
-        {task, default_args}
-      end
-    end)
-    |> Enum.each(fn {task, args} ->
+    |> Enum.each(fn {task, _subargs} = bless_component ->
+      args =
+        bless_component
+        |> Bless.combine_args(archargs)
+
       IO.ANSI.format([:cyan, "Running #{task} with args #{inspect(args)}"])
       |> IO.puts()
 
-      Mix.Task.run(task |> to_string(), args)
+      task
+      |> to_string()
+      |> Mix.Task.run(args)
     end)
   end
 end
