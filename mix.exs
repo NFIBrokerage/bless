@@ -52,8 +52,8 @@ defmodule Bless.MixProject do
       # docs
       {:ex_doc, ">= 0.0.0", only: :dev, runtime: false, optional: true},
       # test
-      {:chaps, ">= 0.15.0", only: :test, optional: true},
-      {:credo, ">= 0.0.0", only: :test, runtime: false, optional: true}
+      {:chaps, ">= 1.0.0", only: :test, optional: true},
+      {:credo, ">= 1.7.0", only: :test, runtime: false, optional: true}
     ]
   end
 
