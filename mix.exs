@@ -3,7 +3,7 @@ defmodule Bless.MixProject do
 
   @version_file Path.join(__DIR__, ".version")
   @external_resource @version_file
-  @version (case Regex.run(~r/^v([\d\.]+)/, File.read!(@version_file),
+  @version (case Regex.run(~r/^v([\d\.\w-]+)/, File.read!(@version_file),
                    capture: :all_but_first
                  ) do
               [version] -> version

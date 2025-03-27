@@ -30,14 +30,27 @@ defmodule Mix.Tasks.Bless do
   """
 
   @shortdoc "Runs a testing suite"
-  def run(_) do
+  def run(archargs) do
+    IO.ANSI.format([
+      :cyan,
+      :bright,
+      "Running bless w/ args #{inspect(archargs)}"
+    ])
+    |> IO.puts()
+
     Mix.Project.config()
     |> Keyword.get(:bless_suite, Bless.default())
-    |> Enum.each(fn {task, args} ->
+    |> Enum.each(fn {task, _subargs} = bless_component ->
+      args =
+        bless_component
+        |> Bless.combine_args(archargs)
+
       IO.ANSI.format([:cyan, "Running #{task} with args #{inspect(args)}"])
       |> IO.puts()
 
-      Mix.Task.run(task |> to_string(), args)
+      task
+      |> to_string()
+      |> Mix.Task.run(args)
     end)
   end
 end
